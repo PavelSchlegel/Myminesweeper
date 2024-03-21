@@ -7,8 +7,8 @@ include(FetchContent)
 set(BUILD_SHARED_LIBS OFF)
 FetchContent_Declare(
     sfml
-    URL https://github.com/SFML/SFML/archive/refs/tags/2.6.0.tar.gz
-    DOWNLOAD_EXTRACT_TIMESTAMP ON
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.6.1
 )
 
 FetchContent_MakeAvailable(sfml)
