@@ -21,6 +21,10 @@ public:
     sf::Sprite& get_sprite() {
         return m_sprite;
     }
+
+    void buttonOne() {
+        m_sprite.setTextureRect(sf::IntRect(282, 0, 32, 32));
+    }
 };
 
 int main()
@@ -28,26 +32,36 @@ int main()
     sf::RenderWindow window(sf::VideoMode(880, 640), "My window");
     sf::Clock clock;
 
-    //sf::Texture ButtonTexture;
     int w = 32;
     Ob_Button freeButton;
-    
-
-    //sf::Sprite ButtonSprite(ButtonTexture);
-
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {   
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed){
                 window.close();
+            }
         }
 
         window.clear(sf::Color::White);
-        //ButtonSprite.setTextureRect(sf::IntRect(320, 0, 32, 32));
-        freeButton.get_sprite().setPosition(32, 32);
+        freeButton.get_sprite().setPosition(/*x*/32, /*y*/32);
+
+        if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                if (event.mouseButton.x >= freeButton.get_sprite().getPosition().x) {
+                    if (event.mouseButton.x <= freeButton.get_sprite().getPosition().x + w) {
+                        if (event.mouseButton.y >= freeButton.get_sprite().getPosition().x) {
+                            if (event.mouseButton.y <= freeButton.get_sprite().getPosition().x + w) {
+                                freeButton.buttonOne();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
         window.draw(freeButton.get_sprite());
 
         window.display();
