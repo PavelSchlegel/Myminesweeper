@@ -10,11 +10,12 @@ public:
 
     Ob_Button()
     {
-        if ( ! m_texture.loadFromFile("../../GPG/PlayField.jpg", sf::IntRect(320, 0, 32, 32))) {
+        if ( ! m_texture.loadFromFile("../../GPG/PlayField.jpg"/*, sf::IntRect(320, 0, 32, 32)*/)) {
             std::cout << "Error-Image was not open!" << std::endl;
         }
         else {
             m_sprite.setTexture(m_texture);
+            m_sprite.setTextureRect(sf::IntRect(320, 0, 32, 32));
         }
     }
 
@@ -23,7 +24,7 @@ public:
     }
 
     void buttonOne() {
-        m_sprite.setTextureRect(sf::IntRect(282, 0, 32, 32));
+        m_sprite.setTextureRect(sf::IntRect(288, 0, 32, 32));
     }
 };
 
