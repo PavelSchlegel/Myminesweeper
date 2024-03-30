@@ -83,9 +83,9 @@ int main()
 
     std::size_t w = 32;
 
-    Ob_Button field [ 10 ] [ 10 ];
-    for ( std::size_t i = 0; i < 10; ++i ) {
-        for ( std::size_t j = 0; j < 10; ++j ) {
+    Ob_Button field [ 12 ] [ 12 ];
+    for ( std::size_t i = 1; i <= 10; ++i ) {
+        for ( std::size_t j = 1; j <= 10; ++j ) {
             try {
                 field [ i ] [ j ] .m_sprite .setPosition ( static_cast < float > ( i * w ), static_cast < float > ( j * w ) );
                 // difficulty level ???
@@ -95,6 +95,30 @@ int main()
 			    else {
                     field [ i ] [ j ] .set_value ( 0 );
                 }
+            }
+            catch (...) {
+                std::cout << "Try/catch-error!" << std::endl;
+            }
+        }
+    }
+
+    for ( std::size_t i = 1; i <= 10; ++i ) {
+        for ( std::size_t j = 1; j <= 10; ++j ) {
+            try {
+                if ( field [ i ] [ j ] .m_fieldValue  == 9 ) {
+                    continue;
+                }
+
+                int n = 0;
+                if ( field [ i + 1 ] [ j ] .m_fieldValue ==  9 ) n++;
+                if ( field [ i ] [ j + 1 ] .m_fieldValue ==  9 ) n++;
+                if ( field [ i - 1 ] [ j ] .m_fieldValue ==  9 ) n++;
+                if ( field [ i ] [ j - 1 ] .m_fieldValue  == 9 ) n++;
+                if ( field [ i + 1 ] [ j + 1 ] .m_fieldValue == 9) n++;
+                if ( field [ i - 1 ] [ j - 1 ] .m_fieldValue == 9) n++;
+                if ( field [ i - 1 ] [ j + 1 ] .m_fieldValue == 9) n++;
+                if ( field [ i + 1 ] [ j - 1 ] .m_fieldValue == 9) n++;
+                field [ i ] [ j ] .m_fieldValue = n;
             }
             catch (...) {
                 std::cout << "Try/catch-error!" << std::endl;
