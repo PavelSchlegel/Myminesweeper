@@ -74,7 +74,7 @@ public:
 
 int main()
 {
-    sf::RenderWindow window ( sf::VideoMode ( 880, 640 ), "My window" );
+    sf::RenderWindow window ( sf::VideoMode ( 320, 320 ), "My window" );
     // window.setVerticalSyncEnabled(true);
     window .setFramerateLimit ( 30 );
     sf::Clock clock;
@@ -83,11 +83,14 @@ int main()
 
     std::size_t w = 32;
 
+    int count  = 0;
     Ob_Button field [ 12 ] [ 12 ];
-    for ( std::size_t i = 1; i <= 10; ++i ) {
-        for ( std::size_t j = 1; j <= 10; ++j ) {
+    for ( std::size_t i = 1; i < 11; ++i ) {
+        for ( std::size_t j = 1; j < 11; ++j ) {
             try {
-                field [ i ] [ j ] .m_sprite .setPosition ( static_cast < float > ( i * w ), static_cast < float > ( j * w ) );
+                field [ i ] [ j ] .m_sprite .setPosition ( static_cast < float > ( ( i - 1 ) * w ), static_cast < float > ( ( j - 1 ) * w ) );
+                count++;
+                std::cout << count << std::endl;
                 // difficulty level ???
                 if ( rand () % 5 == 0 ) {
                     field [ i ] [ j ] .set_value ( 9 );
@@ -141,9 +144,9 @@ int main()
         if ( event.type == sf::Event::MouseButtonPressed ) {
             std::cout << " Mouse active " << std::endl;
             if ( event.key.code == sf::Mouse::Left ) {
-                if ( ( event.mouseButton.x / w ) < 10 && ( event.mouseButton.y / w ) < 10 ) {
-                    if ( ! field [ event.mouseButton.x / w ] [ event.mouseButton.y / w ] .is_open ) {
-                        field [ event.mouseButton.x / w ] [ event.mouseButton.y / w ] .buttonOpen ();
+                if ( ( event.mouseButton.x / w ) < 12 && ( event.mouseButton.y / w ) < 12 ) {
+                    if ( ! field [ ( event.mouseButton.x / w ) + 1] [ ( event.mouseButton.y / w ) + 1 ] .is_open ) {
+                        field [ ( event.mouseButton.x / w ) + 1] [ ( event.mouseButton.y / w ) + 1 ] .buttonOpen ();
                     }
                 }
                 std::cout << " Mouse left_button " << std::endl;
@@ -155,8 +158,8 @@ int main()
             }
         }
 
-        for ( std::size_t i = 0; i < 10; ++i ) {
-            for ( std::size_t j = 0; j < 10; ++j ) {
+        for ( std::size_t i = 1; i < 11; ++i ) {
+            for ( std::size_t j = 1; j < 11; ++j ) {
                 try {
                     window .draw ( field [ i ] [ j ] .m_sprite );
                 }
@@ -170,8 +173,8 @@ int main()
             if ( event.type == sf::Event::MouseButtonReleased ) {
                 std::cout << " Mouse right_release " << std::endl;
                 if ( event.key.code == sf::Mouse::Right/* sf::Mouse::isButtonPressed(sf::Mouse::Button::Right )*/ ) {
-                    if ( ( event.mouseButton.x / w ) < 10 && ( event.mouseButton.y / w ) < 10 ) {
-                        field [ event.mouseButton.x / w ] [ event.mouseButton.y / w ] .buttonFlag ();
+                    if ( ( event.mouseButton.x / w ) < 12 && ( event.mouseButton.y / w ) < 12 ) {
+                        field [ ( event.mouseButton.x / w ) + 1 ] [ ( event.mouseButton.y / w ) + 1 ] .buttonFlag ();
                         ButtonRight = false;
                     }
                 }
